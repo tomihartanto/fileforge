@@ -112,7 +112,7 @@ export async function convertPdfToImages(
 }
 
 // =============================================
-// TEXT EXTRACTION dengan unpdf
+// TEXT EXTRACTION
 // =============================================
 
 async function extractPdfText(buffer: Buffer): Promise<string> {
