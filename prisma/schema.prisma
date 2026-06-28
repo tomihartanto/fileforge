@@ -1,0 +1,56 @@
+// FileForge - Database Schema
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model File {
+  id          String   @id @default(cuid())
+  originalName String
+  storedName  String
+  mimeType    String
+  size        BigInt
+  // local path atau cloudinary public_id
+  storageKey  String
+  storageDriver String @default("local") // "local" | "cloudinary"
+  url         String?
+  
+  // relasi
+  operations  FileOperation[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([storageDriver])
+}
+
+model FileOperation {
+  id          String   @id @default(cuid())
+  fileId      String
+  file        File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  
+  type        String   // "convert" | "compress" | "edit"
+  // format input & output (misal pdf -> docx)
+  fromFormat  String?
+  toFormat    String?
+  
+  status      String   @default("pending") // "pending" | "processing" | "completed" | "failed"
+  // path file hasil (jika convert/compress)
+  resultKey   String?
+  resultUrl   String?
+  resultSize  BigInt?
+  
+  // options yang dipakai (JSON)
+  options     Json?
+  errorMessage String?
+  
+  createdAt   DateTime @default(now())
+  completedAt DateTime?
+
+  @@index([fileId])
+  @@index([type])
+}
