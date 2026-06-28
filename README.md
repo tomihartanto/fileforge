@@ -61,7 +61,9 @@ DATABASE_URL="postgresql://admin:***@localhost:5432/db_fileforge?schema=public"
 # Cloudinary (kosongkan untuk local storage)
 CLOUDINARY_CLOUD_NAME=""
 CLOUDINARY_API_KEY=""
-...n
+CLOUDINARY_API_SECRET=""
+CLOUDINARY_FOLDER="FileForge"
+
 # Storage driver: "local" atau "cloudinary"
 STORAGE_DRIVER="local"
 ```
@@ -74,7 +76,9 @@ Untuk production, ganti ke Cloudinary dan Neon DB:
 DATABASE_URL="postgresql://user:***@ep-xxx.region.aws.neon.tech/db_fileforge?sslmode=require"
 CLOUDINARY_CLOUD_NAME="your-cloud-name"
 CLOUDINARY_API_KEY="your-api-key"
-...n
+CLOUDINARY_API_SECRET="your-api-secret"
+STORAGE_DRIVER="cloudinary"
+```
 
 ## Struktur Project
 
@@ -122,4 +126,4 @@ fileforge/
 
 ## Lisensi
 
-MIT
+All Rights Reserved. Dilarang menyalin, memodifikasi, mendistribusikan, atau menggunakan code ini tanpa izin tertulis dari pemilik. Lihat file [LICENSE](LICENSE).
